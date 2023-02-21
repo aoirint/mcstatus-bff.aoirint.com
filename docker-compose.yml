@@ -1,0 +1,10 @@
+services:
+  bff:
+    image: aoirint/aoirint_mcping_bff:latest
+    restart: always
+    environment:
+      MCPING_BFF_CORS_ALLOW_ORIGINS: ${MCPING_BFF_CORS_ALLOW_ORIGINS}
+      MCPING_WEB_API_URL: ${MCPING_WEB_API_URL}
+      MCPING_WEB_API_READ_API_KEY: ${MCPING_WEB_API_READ_API_KEY}
+    ports:
+      - "${MCPING_BFF_HOST_PORT}:5000"

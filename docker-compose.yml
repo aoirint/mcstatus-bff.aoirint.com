@@ -8,3 +8,23 @@ services:
       MCPING_WEB_API_READ_API_KEY: ${MCPING_WEB_API_READ_API_KEY}
     ports:
       - "${MCPING_BFF_HOST_PORT}:5000"
+
+  nginx:
+    image: nginx:latest
+    restart: always
+    depends_on:
+      - bff
+    volumes:
+      - ./nginx_templates:/etc/nginx/templates
+      - ${NGINX_LOG_DIR:?}:/logs
+    environment:
+      - NGINX_ENVSUBST_TEMPLATE_SUFFIX=.nginx
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    command: tunnel run
+    restart: always
+    depends_on:
+      - nginx
+    environment:
+      TUNNEL_TOKEN: ${CLOUDFLARED_TUNNEL_TOKEN:?}

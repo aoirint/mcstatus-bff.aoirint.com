@@ -1,6 +1,6 @@
 services:
   bff:
-    image: aoirint/aoirint_mcping_bff:0.2.3
+    image: aoirint/aoirint_mcping_bff:0.2.5
     restart: always
     environment:
       - MCPING_BFF_CORS_ALLOW_ORIGINS=${MCPING_BFF_CORS_ALLOW_ORIGINS:?}
